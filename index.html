@@ -587,7 +587,49 @@
   }
   html, body {
     max-width: 100vw;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
+  }
+
+  /* Corrige largura do fundo e previne overflow no mobile/iOS */
+  #parallax-bg {
+    width: 100vw;
+    left: 0;
+    right: 0;
+  }
+
+  @media (max-width: 900px) {
+    .carousel.full-bleed {
+      width: 100%;
+      max-width: 100%;
+      margin-left: 0;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .next-match {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 10px;
+      min-width: 0;
+      max-width: 100vw;
+      box-sizing: border-box;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #parallax-bg {
+      width: 100vw;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      min-height: 0;
+      max-height: 100vh;
+      background-size: contain;
+      background-attachment: scroll;
+      position: absolute;
+    }
+  }
   }
     .lightbox .lb-caption { color: #fff; opacity: .95; font-size: .95rem; text-align: center; }
     .lightbox .lb-close {
@@ -822,25 +864,25 @@
           <p style="opacity:.85">n° 3</p>
         </article>
 
-        <!-- Zaga -->
+        <!-- MEIA -->
         <article class="player">
           <img src="elenco/semfoto.png" alt="João" onerror="this.src='elenco/semfoto.png'">
           <div class="jersey">13</div>
-          <div class="pos">ZAGA</div>
+          <div class="pos">MEIA</div>
           <h3>João</h3>
           <p style="opacity:.85">n° 13</p>
         </article>
         <article class="player">
           <img src="elenco/semfoto.png" alt="Paulinho" onerror="this.src='elenco/semfoto.png'">
           <div class="jersey">25</div>
-          <div class="pos">ZAGA</div>
+          <div class="pos">MEIA</div>
           <h3>Paulinho</h3>
           <p style="opacity:.85">n° 25</p>
         </article>
         <article class="player">
           <img src="elenco/Rana.jpeg" alt="Rana" onerror="this.src='elenco/semfoto.png'">
           <div class="jersey">5</div>
-          <div class="pos">ZAGA</div>
+          <div class="pos">MEIA</div>
           <h3>Rãna</h3>
           <p style="opacity:.85">n° 5</p>
         </article>
