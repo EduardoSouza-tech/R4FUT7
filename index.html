@@ -52,22 +52,30 @@
       background-image: url('logoparallax.jpg');
       background-size: cover;
       background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       will-change: transform;
       pointer-events: none;
       transform: translate3d(0,0,0);
     }
-    @media (max-width: 900px){
-    /* Parallax emulada (elemento fixo com translate) */
-    #parallax-bg{
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background-image: url('logoparallax.jpg');
-      background-size: cover;
-      background-position: center center;
-      will-change: transform;
-      pointer-events: none;
-      transform: translate3d(0,0,0);
+    /* Mobile: remove parallax e mostra imagem inteira */
+    @media (max-width: 768px) {
+      #parallax-bg {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background-image: url('logoparallax.jpg');
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        will-change: unset;
+        pointer-events: none;
+        transform: none;
+        height: 60vw;
+        min-height: 300px;
+        max-height: 100vh;
+      }
     }
     @media (prefers-reduced-motion: reduce){
       #parallax-bg{ display:none !important; }
