@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>R4 FUT 7 — Oficial</title>
+  <meta name="description" content="R4 FUT 7 — Site oficial do time. Agenda, elenco, títulos, fotos e contato." />
+  <meta name="theme-color" content="#005600" />
+  <!-- Favicon: usar o logo do site como ícone (PNG). Se preferir um .ico/variações, substitua os arquivos. -->
+  <link rel="icon" type="image/png" href="logor4.png">
+  <link rel="shortcut icon" href="logor4.png">
+  <link rel="apple-touch-icon" href="logor4.png">
+  <!-- Variantes de favicon para diferentes navegadores/resoluções -->
+  <link rel="icon" type="image/png" sizes="32x32" href="logor4.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="logor4.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fonte esportiva + leitura. Se preferir offline, remova estas linhas. -->
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --green:#005600;             /* cor principal solicitada */
+      --green-700:#004400;         /* variação para sombras */
+      --green-900:#003300;         /* variação para fundos profundos */
+      --black:#000000;             /* detalhes pretos */
+      --white:#ffffff;             /* letras brancas */
+      --glass:rgba(0,0,0,.45);     /* vidro escuro */
+      --ring:rgba(255,255,255,.25);
+      --radius:16px;
+      --maxw:1200px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--white);
+      /* Fundo fotográfico responsivo + camada de escurecimento para legibilidade */
+      background:
+        radial-gradient(1200px 800px at 50% -10%, rgba(0,0,0,.75) 0%, rgba(0,0,0,.65) 40%, rgba(0,0,0,.55) 100%),
+        url('logoparallax.jpg') center / cover no-repeat fixed;
+      background-color:#000; /* fallback */
+    }
+    /* Elemento fixo que emula o parallax (está em topo do documento) - garante presença em todos tamanhos */
+    #parallax-bg{
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: url('logoparallax.jpg');
+      background-size: cover;
+      background-position: center center;
+      will-change: transform;
+      pointer-events: none;
+      transform: translate3d(0,0,0);
+    }
+    @media (max-width: 900px){
+    /* Parallax emulada (elemento fixo com translate) */
+    #parallax-bg{
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: url('logoparallax.jpg');
+      background-size: cover;
+      background-position: center center;
+      will-change: transform;
+      pointer-events: none;
+      transform: translate3d(0,0,0);
+    }
+    @media (prefers-reduced-motion: reduce){
+      #parallax-bg{ display:none !important; }
+    }
+    @media (max-width:420px){
+      /* tuning leve em telas muito pequenas */
+      #parallax-bg{ background-position: center top; }
+    }
+    }
+    /* Barra de progresso de rolagem (detalhe preto) */
+    .scrollbar{
+      position:fixed; inset:0 auto auto 0;
+      height:4px; width:0%;
+      background:var(--black);
+      z-index:60;
+      box-shadow:0 0 0 1px rgba(255,255,255,.08) inset;
+      transition:width .2s linear;
+    }
+
+    /* Cabeçalho */
+    header{
+      position:sticky; top:0; z-index:50;
+      background:linear-gradient(to bottom, rgba(0,0,0,.8), rgba(0,0,0,.6));
+      backdrop-filter:saturate(120%) blur(6px);
+      border-bottom:2px solid var(--black);
+    }
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+    .bar{display:flex; align-items:center; justify-content:space-between; gap:18px; padding:12px 0}
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--white)}
+    .crest{
+      width:42px; height:48px; display:inline-block;
+      filter:drop-shadow(0 4px 12px rgba(0,0,0,.7));
+      object-fit:contain;
+    }
+    .brand span{
+      font-family:Teko,Inter,sans-serif;
+      letter-spacing:.5px; font-size:28px; font-weight:700;
+      text-transform:uppercase;
+    }
+
+    nav a{
+      color:var(--white); text-decoration:none; font-weight:600;
+      padding:10px 14px; border-radius:10px; display:inline-block;
+    }
+    nav a:hover, nav a:focus{
+      outline:none; box-shadow:0 0 0 2px var(--ring); background:rgba(255,255,255,.05)
+    }
+    .menu{display:flex; gap:6px; align-items:center}
+    .menu-toggle{
+      display:none; background:var(--black); color:var(--white); border:0;
+      padding:10px 12px; border-radius:10px; font-weight:700
+    }
+    @media (max-width: 860px){
+      .menu{display:none}
+      .menu.open{display:flex; flex-direction:column; align-items:flex-start; padding:10px 0}
+      .menu-toggle{display:inline-block}
+      .bar{flex-wrap:wrap}
+    }
+
+    /* Hero */
+    .hero{
+      position:relative; isolation:isolate;
+      min-height:84vh; display:grid; place-items:center;
+      padding:96px 20px 48px;
+      border-bottom:2px solid var(--black);
+      overflow:hidden;
+    }
+    
+    /* linhas de campo diagonais pretas de detalhe */
+    .hero::before{
+      content:""; position:absolute; inset:-20% -10% auto -10%;
+      height:90%; z-index:-1; opacity:.15;
+      background:
+        repeating-linear-gradient(135deg, var(--black) 0 3px, transparent 3px 28px);
+      transform:skewY(-3deg);
+    }
+    .hero-inner{
+      max-width:980px; text-align:center;
+    }
+    .kicker{
+      font:700 14px/1 Inter, sans-serif; letter-spacing:.2em; text-transform:uppercase;
+      opacity:.85; display:inline-block; padding:6px 12px; border:1px solid var(--black); border-radius:999px;
+      background:rgba(0,0,0,.35)
+    }
+    .h1{
+      font-family:Teko,Inter,sans-serif;
+      font-size:clamp(40px, 8vw, 92px); line-height:.9; margin:14px 0 10px; text-transform:uppercase;
+      text-shadow:0 8px 30px rgba(0,0,0,.6);
+    }
+    .lead{opacity:.92; font-size:18px; max-width:760px; margin:0 auto 22px}
+    .cta{
+      display:flex; gap:12px; justify-content:center; flex-wrap:wrap
+    }
+    .btn{
+      border:2px solid var(--black);
+      background:var(--black); color:var(--white); padding:12px 18px; border-radius:12px; font-weight:800;
+      text-decoration:none; display:inline-flex; align-items:center; gap:10px;
+      box-shadow:var(--shadow);
+    }
+    .btn.alt{background:transparent}
+    .btn:hover{filter:brightness(1.06)}
+    /* Botão na cor tema do time */
+    .btn.btn-theme{
+      background:var(--green);
+      color:var(--white);
+      border-color:var(--black);
+    }
+    .btn.btn-theme:hover, .btn.btn-theme:focus{
+      filter:brightness(1.1);
+      outline:none;
+      box-shadow:0 0 0 2px var(--ring), var(--shadow);
+    }
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px; border:1px solid var(--black); background:rgba(0,0,0,.35)
+    }
+
+    /* Cartão "Próximo Jogo" */
+    .next-match{
+      margin:28px auto 0; max-width:860px;
+      background:linear-gradient(145deg, rgba(0,0,0,.7), rgba(0,0,0,.45));
+      border:1px solid var(--black); border-radius:var(--radius); padding:16px;
+      display:grid; grid-template-columns:1fr auto 1fr; gap:10px; align-items:center;
+      box-shadow:var(--shadow);
+    }
+    .team{
+      display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:center;
+    }
+    .team .shield{
+      width:58px; height:58px; border-radius:12px; background:var(--green);
+      border:2px solid var(--black); display:grid; place-items:center; font-weight:900;
+      text-shadow:0 2px 10px rgba(0,0,0,.35);
+    }
+    .team .shield img{
+      width:50px; height:50px; object-fit:contain; border-radius:8px;
+    }
+    .vs{font:700 16px/1 Inter, sans-serif; opacity:.8}
+    .match-meta{grid-column:1/-1; display:flex; gap:10px; flex-wrap:wrap; justify-content:center; opacity:.9}
+    .badge{
+      border:1px solid var(--black); background:rgba(0,0,0,.4); padding:6px 10px; border-radius:999px; font-size:13px
+    }
+
+    /* Seções padrão */
+    section{padding:70px 20px; border-bottom:2px solid var(--black)}
+    .section-title{
+      font-family:Teko,Inter,sans-serif; text-transform:uppercase; letter-spacing:.04em;
+      font-size:clamp(28px,4.8vw,48px); margin:0 0 6px;
+    }
+    .section-sub{opacity:.9; margin:0 0 24px}
+    .grid{display:grid; gap:18px}
+
+    /* Sobre */
+    .features{grid-template-columns:repeat(3,1fr)}
+    .feature{
+      background:linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,.45));
+      border:1px solid var(--black); border-radius:14px; padding:16px; min-height:120px
+    }
+    .feature h4{margin:6px 0 8px; font:700 20px/1.1 Inter, sans-serif}
+    .feature p{margin:0; opacity:.9; font-size:14.5px}
+    @media (max-width:900px){ .features{grid-template-columns:1fr} }
+
+    /* Elenco */
+    .roster{grid-template-columns:repeat(4,1fr)}
+    @media (max-width:1100px){ .roster{grid-template-columns:repeat(3,1fr)} }
+    @media (max-width:740px){ .roster{grid-template-columns:repeat(2,1fr)} }
+    .player{
+      position:relative; overflow:hidden;
+      background:linear-gradient(180deg, rgba(0,0,0,.62), rgba(0,0,0,.4));
+      border:1px solid var(--black); border-radius:18px; padding:14px;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .player:hover{ transform:translateY(-2px); box-shadow:var(--shadow) }
+    .player img{
+      width:80px; height:80px; border-radius:12px; object-fit:cover; 
+      margin-bottom:10px; border:2px solid var(--green);
+    }
+    .jersey{
+      font-family:Teko,Inter,sans-serif; font-weight:700; font-size:42px; line-height:1;
+      width:64px; height:64px; border-radius:12px; background:var(--green); border:2px solid var(--black);
+      display:grid; place-items:center; margin-bottom:10px;
+    }
+    .pos{font-size:12px; letter-spacing:.2em; text-transform:uppercase; opacity:.8}
+    .captain{position:absolute; right:10px; top:10px; background:var(--black); border:1px solid var(--black); padding:6px 10px; border-radius:999px; font-size:12px}
+
+    /* Títulos & Estatísticas */
+    .stats{grid-template-columns:repeat(4,1fr)}
+    @media (max-width:900px){ .stats{grid-template-columns:repeat(2,1fr)} }
+    .stat{
+      text-align:center; padding:18px; border:1px solid var(--black); border-radius:18px;
+      background:linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,.45));
+    }
+    .stat .num{font-family:Teko,Inter,sans-serif; font-size:64px; line-height:1; margin-bottom:8px}
+    .stat .lab{opacity:.85; font-weight:600}
+
+    /* Agenda de jogos */
+    .schedule{
+      width:100%; border-collapse:separate; border-spacing:0 10px; font-size:15px;
+    }
+    .schedule thead th{ text-align:left; opacity:.75; font-weight:700; padding:6px 10px }
+    .schedule tbody tr{
+      background:linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.45));
+      border:1px solid var(--black); border-radius:12px; overflow:hidden;
+    }
+    .schedule td{ padding:12px 10px; border-bottom:1px solid rgba(255,255,255,.03) }
+    .k{font-weight:700}
+    .result{
+      font-weight:800; padding:6px 10px; border-radius:8px; border:1px solid var(--black);
+      display:inline-block; text-transform:uppercase; letter-spacing:.06em;
+    }
+    .W{background:rgba(0,255,0,.18)} .L{background:rgba(255,0,0,.18)} .D{background:rgba(255,255,255,.12)}
+  /* Suporte para mostrar 'V' (vitória) como alternativa de exibição */
+  .V{background:rgba(0,255,0,.18)}
+
+    /* Galeria - Carrossel */
+    .carousel{ position:relative; }
+    .carousel-viewport{
+      position:relative; overflow:hidden;
+      border:1px solid var(--black); border-radius:16px;
+      background:linear-gradient(180deg, rgba(0,0,0,.4), rgba(0,0,0,.65));
+      box-shadow:var(--shadow);
+      width:100%;
+      height:clamp(320px, 70vh, 860px);
+    }
+    @media (max-width:900px){ .carousel-viewport{ height:clamp(260px, 58vh, 680px) } }
+    /* Full-bleed: ocupa toda a largura da janela mesmo dentro do container */
+    .carousel.full-bleed{
+      width:100vw; max-width:100vw;
+      margin-left:50%; transform:translateX(-50%);
+    }
+  .carousel-track{ display:flex; height:100%; transition:transform .5s ease; }
+  .carousel-slide{ flex:0 0 100%; height:100%; position:relative }
+    .carousel-slide img{
+      width:100%; height:100%;
+      object-fit:contain; object-position:center;
+      display:block;
+      /* Mantém qualidade e evita distorção, sem cortar a imagem */
+      filter:contrast(1.02) saturate(1.08);
+      background:transparent;
+    }
+    .carousel-btn{
+      position:absolute; top:50%; transform:translateY(-50%);
+      background:rgba(0,0,0,.55); color:#fff; border:1px solid var(--black);
+      width:42px; height:42px; border-radius:999px; display:grid; place-items:center;
+      cursor:pointer; z-index:2; font-weight:900; box-shadow:var(--shadow)
+    }
+    .carousel-btn:hover{ filter:brightness(1.1) }
+    .carousel-btn.prev{ left:10px }
+    .carousel-btn.next{ right:10px }
+    .carousel-dots{ position:absolute; left:0; right:0; bottom:10px; display:flex; gap:8px; justify-content:center; }
+    .carousel-dots button{
+      width:10px; height:10px; border-radius:999px; border:1px solid var(--black);
+      background:rgba(255,255,255,.45); cursor:pointer
+    }
+    .carousel-dots button[aria-current="true"]{ background:var(--white) }
+
+    /* Diretoria */
+    .diretoria-photo{
+      width:100%;
+      max-height:420px;
+      object-fit:cover;
+      border:1px solid var(--black);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      display:block;
+      margin-bottom:14px;
+    }
+    /* Seção Diretoria com foto de fundo */
+    .diretoria-section{
+      position:relative;
+      background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 100%), url('diretoria.jpg') center 40% / cover no-repeat;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 48px 16px 32px 16px;
+      border-radius: 24px;
+      margin-bottom: 32px;
+    }
+    .diretoria-section::before{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.55) }
+    .diretoria-section .wrap{ position:relative }
+    .diretoria-section .section-title, .diretoria-section .section-sub{ text-shadow:0 4px 18px rgba(0,0,0,.6) }
+    /* Botões de contato (Instagram/WhatsApp) */
+    .btn-instagram{ background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5); color:#fff; border:1px solid var(--black) }
+    .btn-whatsapp{ background:#25D366; color:#000; border:1px solid var(--black) }
+    .btn-whatsapp:hover{ filter:brightness(0.95) }
+    /* E-mail mais visível */
+  .chip.email{ background:rgba(0,0,0,.65); font-weight:800 }
+  /* Botão da descrição do e-mail: verde com texto branco */
+  .contact-mail .btn-ghost{ background:var(--green); color:#fff; border-color:var(--black) }
+  /* Garantir e-mail branco e sem sublinhado na chip */
+  .chip.email a{ color:#fff; text-decoration:none }
+    /* Contador do carrossel */
+    .carousel .carousel-counter{
+      position: absolute;
+      right: 16px; bottom: 16px;
+      padding: 6px 10px;
+      background: rgba(0,0,0,.55);
+      color: #fff;
+      font-size: .85rem;
+      border-radius: 12px;
+      backdrop-filter: saturate(120%) blur(4px);
+      -webkit-backdrop-filter: saturate(120%) blur(4px);
+      pointer-events: none;
+    }
+
+    /* Patrocinadores */
+    .sponsors{display:grid; grid-template-columns:repeat(5,1fr); gap:16px; align-items:stretch}
+    @media (max-width:1100px){ .sponsors{grid-template-columns:repeat(4,1fr)} }
+    @media (max-width:900px){ .sponsors{grid-template-columns:repeat(3,1fr)} }
+    @media (max-width:600px){ .sponsors{grid-template-columns:repeat(2,1fr)} }
+    .sponsor{
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+      border:1px solid var(--black); border-radius:12px; padding:12px; background:rgba(0,0,0,.45);
+      min-height:96px;
+    }
+    /* aumentar o tamanho das logos dos patrocinadores */
+  .sponsor img{ width:100%; max-width:240px; height:auto; object-fit:contain; display:block }
+    .sponsor .insta-btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:36px; height:36px; padding:0; border-radius:10px; text-decoration:none; color:#fff;
+      background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5); border:1px solid rgba(0,0,0,.6)
+    }
+    /* ícone menor e centralizado */
+    .sponsor .insta-btn svg{ width:14px; height:14px }
+
+    /* Contato */
+    form{
+      display:grid; gap:12px; max-width:680px;
+      background:linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,.45));
+      border:1px solid var(--black); border-radius:16px; padding:16px
+    }
+    input, textarea{
+      background:rgba(0,0,0,.6); color:var(--white); border:1px solid var(--black);
+      padding:12px 14px; border-radius:12px; font:600 14px Inter,sans-serif
+    }
+    input:focus, textarea:focus{ outline:none; box-shadow:0 0 0 2px var(--ring) }
+  textarea{ min-height:120px; resize:vertical }
+  /* Diretoria - ações e chip */
+  .contact-actions{ display:flex; gap:12px; flex-wrap:wrap }
+  .contact-actions .btn{ display:inline-flex; align-items:center; gap:8px }
+  @media (max-width:700px){ .contact-actions .btn{ flex:1 1 100%; justify-content:center } }
+  .contact-mail{ margin-top:10px }
+  .chip{ display:inline-flex; align-items:center; gap:8px; border:1px solid var(--black); background:rgba(0,0,0,.5); padding:6px 10px; border-radius:999px }
+  .btn-ghost{ background:rgba(255,255,255,.08); border:1px solid var(--black); color:var(--white) }
+  .btn-ghost:hover{ background:rgba(255,255,255,.15) }
+  /* Ícones inline nos botões */
+  .btn svg{ width:18px; height:18px }
+
+    /* Rodapé */
+    footer{
+      padding:24px 20px; background:#000; border-top:2px solid var(--black);
+    }
+    .social{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+    .social a{
+      border:1px solid var(--black); background:rgba(255,255,255,.06);
+      padding:10px 12px; border-radius:12px; text-decoration:none; color:var(--white); font-weight:700
+    }
+    .copy{opacity:.8; font-size:14px}
+
+    /* Botão flutuante WhatsApp */
+    .whats{
+      position:fixed; right:18px; bottom:18px; z-index:40;
+      background:var(--black); color:#fff; text-decoration:none; border:2px solid var(--black);
+      padding:12px 14px; border-radius:999px; font-weight:800; box-shadow:var(--shadow)
+    }
+
+    /* Acessibilidade/motion */
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important}
+    }
+    /* Ajustes adicionais para estabilidade dos cards do elenco */
+    .player {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgb(0 0 0), rgba(0, 0, 0, .4));
+      border: 1px solid var(--black);
+      border-radius: 18px;
+      padding: 14px;
+      transition: transform .2s ease, box-shadow .2s ease;
+      min-height: 260px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .player img {
+      width: 100px;
+      height: 120px;
+      object-fit: cover;
+      margin-bottom: 8px;
+    }
+
+    /* Aplicar estilo similar a outros cartões do site (override global) */
+    .feature, .stat, .news-card, .sponsor, .next-match {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgb(0 0 0), rgba(0, 0, 0, .4));
+      border: 1px solid var(--black);
+      border-radius: 18px;
+      padding: 14px;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .grid.roster {
+      align-items: stretch;
+    }
+    /* ===== Notícias ===== */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 6px;
+    }
+    .news-card {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      min-height: 160px;
+      background: #111;
+      box-shadow: 0 6px 18px rgba(0,0,0,.25);
+    }
+    .news-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(.98) contrast(.98);
+    }
+    .news-card .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.1));
+      display: flex;
+      align-items: flex-end;
+      padding: 12px;
+    }
+    .news-card .title {
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.2;
+      text-shadow: 0 2px 6px rgba(0,0,0,.6);
+    }
+    @media (max-width: 900px){
+      .news-grid{ grid-template-columns: 1fr; }
+    }
+    /* Fundo preto para a seção Sobre; patrocinadores usa imagem de fundo com overlay */
+    #sobre{
+      background: #000;
+      background-image: none;
+    }
+    #patrocinio{
+      /* overlay escuro para manter contraste do texto */
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.35)),
+        url('patrocinadores/sejapatrocinador.jpg');
+      background-color:#000; /* fallback */
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+    }
+    /* Lightbox / visualização ampliada de imagens */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      background: rgba(0,0,0,.85);
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 24px;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox .lb-inner {
+      max-width: 1100px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+  .lightbox img, .lightbox video { max-width: 100%; max-height: 76vh; object-fit: contain; border-radius: 6px; }
+    .lightbox .lb-caption { color: #fff; opacity: .95; font-size: .95rem; text-align: center; }
+    .lightbox .lb-close {
+      position: absolute; top: 14px; right: 18px; background: transparent; border: none; color: #fff;
+      font-size: 32px; line-height: 1; cursor: pointer; padding: 6px 8px;
+    }
+    @media (max-width:600px){ .lightbox .lb-close{ font-size:28px; top:10px; right:12px } }
+  </style>
+<body>
+  <!-- Elemento fixo para emular parallax em mobile/desktop -->
+  <div id="parallax-bg" aria-hidden="true"></div>
+  <div class="scrollbar" id="scrollbar" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap bar">
+      <a class="brand" href="#inicio" aria-label="R4 FUT 7 - início">
+        <!-- Logo R4 -->
+        <img class="crest" src="logor4.png" alt="Logo R4 FUT 7" role="img">
+        <span>R4 FUT 7</span>
+      </a>
+
+      <button class="menu-toggle" aria-expanded="false" aria-controls="nav">MENU</button>
+      <nav id="nav" class="menu" aria-label="principal">
+        <a href="#inicio">Início</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#elenco">Elenco</a>
+        <a href="#titulos">Títulos</a>
+        <a href="#agenda">Agenda</a>
+  <a href="#galeria">Galeria</a>
+  <a href="#diretoria">Diretoria</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio" class="hero" role="main">
+    <div class="hero-inner wrap">
+      <span class="kicker">Time oficial • Fut7</span>
+      <h1 class="h1">Amizade, Raça &amp; Habilidade</h1>
+      <p class="lead">
+        O R4 FUT 7 une amizade e competitividade. Jogos intensos, disciplina tática e amor pelo jogo — dentro e fora da arena.
+      </p>
+      <div class="cta">
+        <a class="btn" href="#agenda" aria-label="ver agenda de jogos">
+          <!-- ícone calendário -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2h2v2h6V2h2v2h3a2 2 0 0 1 2 2v3H2V6a2 2 0 0 1 2-2h3V2Zm15 8H2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V10Z"/></svg>
+          Ver agenda
+        </a>
+        <a class="btn btn-theme" href="#diretoria">
+          Faça parte do R4!
+        </a>
+      </div>
+
+      <!-- Próximo jogo (preenchido via JS) -->
+      <div class="next-match" id="nextMatch" aria-live="polite">
+        <div class="team" aria-label="Time da casa">
+          <div class="shield"><img src="logor4.png" alt="Logo R4"></div>
+          <div>
+            <div class="k">R4 FUT 7</div>
+            <div class="pos" style="opacity:.8">Casa</div>
+          </div>
+        </div>
+
+        <div class="vs">vs</div>
+
+        <div class="team" aria-label="Adversário">
+          <div class="shield" id="shieldAdv">A7</div>
+          <div>
+            <div class="k" id="advName">Adversário</div>
+            <div class="pos" style="opacity:.8" id="advHome">Visitante</div>
+          </div>
+        </div>
+
+        <div class="match-meta">
+          <span class="badge" id="nmDate">Data</span>
+          <span class="badge" id="nmLoc">Local</span>
+          <span class="badge" id="nmComp">Competição</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Notícias -->
+  <section id="noticias">
+    <div class="wrap">
+      <h2 class="section-title">Notícias</h2>
+      <p class="section-sub">Últimas novidades e destaques do R4</p>
+
+      <div class="news-grid">
+        <article class="news-card" data-video="">
+          <img src="noticias/1.png" alt="R4 brilha na estreia" loading="lazy" decoding="async">
+          <div class="overlay">
+            <div class="title">R4 brilha na estreia e atropela o adversário com goleada histórica: 6 a 1!</div>
+          </div>
+        </article>
+
+        <article class="news-card" data-video="noticias/2.MOV">
+          <!-- capa (poster) do vídeo; ao clicar abre o vídeo em lightbox -->
+          <img src="noticias/2tela.png" alt="Salazar vibra" loading="lazy" decoding="async">
+          <div class="overlay">
+            <div class="title">Salazar vibra após goleada: “Time unido!”</div>
+          </div>
+        </article>
+
+        <article class="news-card" data-video="">
+          <img src="noticias/3.PNG" alt="A rodada foi eletrizante" loading="lazy" decoding="async">
+          <div class="overlay">
+            <div class="title">A rodada foi eletrizante! Veja os placares e destaques</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre -->
+  <section id="sobre">
+    <div class="wrap">
+      <h2 class="section-title">Sobre o R4</h2>
+      <p class="section-sub">Hoje vamos contar pra vocês um pouquinho da história do nosso time.</p>
+      <p>O R4 F7 foi criado por 4 amigos de infância, André, Caio, Daniel e Yan. Somos apaixonados por futebol e temos alguns anos de caminhada no Futebol7, mas compartilhávamos de um objetivo muito maior: ter nosso próprio time.</p>
+      <p>Diante deste objetivo, e alguns meses de planejamento, conseguimos realizar este sonho. Agora a dúvida que alguns tiveram e nos questionaram, porque R4? Se liga na explicação!</p>
+      <p>🟢 R4 é uma referência à rua onde esses 4 amigos nasceram e foram criados, a famosa Rua 4 do Serra Verde.</p>
+      <p>⚫ Nosso escudo foi baseado em nossas paixões: os prédios onde moramos a vida toda e a dupla tradicional, um bom futebol e a famosa breja gelada.</p>
+      <p>É isso amigos, essa é um pouquinho da nossa história, e alguns dos motivos da existência da nossa equipe e de como o R4 nasceu. A gente espera que tenham gostado e que continuem nos acompanhando.</p>
+    </div>
+  </section>
+
+  <!-- Patrocinadores -->
+  <section id="patrocinio">
+    <div class="wrap">
+      <h2 class="section-title">Patrocinadores</h2>
+      <p class="section-sub">Parceiros que acreditam no nosso projeto.</p>
+      <div class="sponsors" id="sponsorsList" aria-live="polite">
+        <!-- patrocinadores serão inseridos dinamicamente aqui -->
+      </div>
+      <script>
+        (function(){
+          // Lista explícita com nomes, arquivos e links fornecidos
+          const sponsors = [
+            { name: 'Betim Ferro', file: 'betimferro.jpg', insta: 'https://www.instagram.com/betimferro?igsh=MXM5NGlrcGU1dWV2MA==' },
+            { name: 'Aerodance Brasil', file: 'aerodance.png', insta: 'https://www.instagram.com/aerodancebrasil?igsh=MXB4bWdtbDh1d3I2Mg==' },
+            { name: 'BUKA', file: 'buka.png', insta: 'https://www.instagram.com/bukaacessorios3?igsh=ZDRzcmlqcGZ2empq' },
+            { name: 'Distribuidora Dois Irmãos', file: 'doisirmaos.jpg', insta: 'https://www.instagram.com/dois.irmaos_distribuidora?igsh=ejYyZXplZ3JjZ2V1' },
+            { name: 'Morena Bella', file: 'morenabella.jpg', insta: 'https://www.instagram.com/morena_bellamf?igsh=MWh1NTIzcHp5ZGt2aw==' },
+            { name: 'Goat', file: 'goat.png', tg: 'https://t.me/+kq1JILtBSF84OGRh?fbclid=PAdGRleANn-GFleHRuA2FlbQIxMQABp89lGsxj1WMvmhuWj8gypRfUb0oHbHi6jdDsXRGd4y87AjBFCNyCaDGMWi_g_aem_FoHpjGAq2X6X4jZfA7Y3hw' },
+            { name: 'SN Arquitetas', file: 'sn.png', insta: 'https://www.instagram.com/snarquitetas?igsh=dzBmcHl6bThzMHIx' },
+            { name: 'Tribus Movie', file: 'tribus.png', insta: 'https://www.instagram.com/tribusmovie?igsh=MTB6MHhlcXdwNTVwcw==' }
+          ];
+
+          const container = document.getElementById('sponsorsList');
+          if(!container) return;
+
+          sponsors.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'sponsor';
+
+            const img = document.createElement('img');
+            img.src = `patrocinadores/${item.file}`;
+            img.alt = item.name;
+            img.loading = 'lazy'; img.decoding = 'async'; img.draggable = false;
+            img.onerror = () => { img.style.opacity = .5; };
+            div.appendChild(img);
+
+            const actions = document.createElement('div');
+            actions.style.marginTop = '8px';
+
+            if(item.insta){
+              const a = document.createElement('a');
+              a.className = 'insta-btn'; a.href = item.insta; a.target = '_blank'; a.rel = 'noopener';
+              a.setAttribute('aria-label', item.name + ' — Instagram');
+              a.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm5 5a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7Zm6.5-.75a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Z"/></svg>';
+              actions.appendChild(a);
+            }
+            if(item.tg){
+              const a = document.createElement('a');
+              a.className = 'insta-btn tg'; a.href = item.tg; a.target = '_blank'; a.rel = 'noopener';
+              a.setAttribute('aria-label', item.name + ' — Telegram');
+              a.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 3L2 12l5.2 2L9 21l3.6-3 5.9 3.7L22 3z"/></svg>';
+              actions.appendChild(a);
+            }
+
+            div.appendChild(actions);
+            container.appendChild(div);
+          });
+        })();
+      </script>
+    </div>
+  </section>
+
+  <!-- Elenco -->
+  <section id="elenco">
+    <div class="wrap">
+      <h2 class="section-title">Elenco</h2>
+      <p class="section-sub">Camisas, posições e destaques da temporada.</p>
+      <div class="grid roster" id="roster">
+        <!-- Goleiros -->
+        <article class="player">
+          <img src="elenco/semfoto.png" alt="Marcão" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">1</div>
+          <div class="pos">GOL</div>
+          <h3>Marcão</h3>
+          <p style="opacity:.85">n° 1</p>
+        </article>
+        <article class="player">
+          <img src="elenco/Almir.jpeg" alt="Almir" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">12</div>
+          <div class="pos">GOL</div>
+          <h3>Almir</h3>
+          <p style="opacity:.85">n° 12</p>
+        </article>
+
+        <!-- Fixo -->
+        <article class="player">
+          <img src="elenco/Rever.jpeg" alt="Rever" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">4</div>
+          <div class="pos">FIXO</div>
+          <h3>Rever</h3>
+          <p style="opacity:.85">n° 4</p>
+        </article>
+        <article class="player empty">
+          <img src="elenco/semfoto.png" alt="Vago">
+          <div class="jersey">-</div>
+          <div class="pos">FIXO</div>
+          <h3>---</h3>
+          <p style="opacity:.85">---</p>
+        </article>
+        <article class="player">
+          <img src="elenco/semfoto.png" alt="Vitão" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">3</div>
+          <div class="pos">FIXO</div>
+          <h3>Vitão</h3>
+          <p style="opacity:.85">n° 3</p>
+        </article>
+
+        <!-- Zaga -->
+        <article class="player">
+          <img src="elenco/semfoto.png" alt="João" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">13</div>
+          <div class="pos">ZAGA</div>
+          <h3>João</h3>
+          <p style="opacity:.85">n° 13</p>
+        </article>
+        <article class="player">
+          <img src="elenco/semfoto.png" alt="Paulinho" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">25</div>
+          <div class="pos">ZAGA</div>
+          <h3>Paulinho</h3>
+          <p style="opacity:.85">n° 25</p>
+        </article>
+        <article class="player">
+          <img src="elenco/Rana.jpeg" alt="Rana" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">5</div>
+          <div class="pos">ZAGA</div>
+          <h3>Rana</h3>
+          <p style="opacity:.85">n° 5</p>
+        </article>
+
+        <!-- Ala -->
+        <article class="player">
+          <img src="elenco/Vilela.jpeg" alt="Vilela" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">77</div>
+          <div class="pos">ALA</div>
+          <h3>Vilela</h3>
+          <p style="opacity:.85">n° 77</p>
+        </article>
+        <article class="player">
+          <img src="elenco/Bruninho.jpeg" alt="Bruninho" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">20</div>
+          <div class="pos">ALA</div>
+          <h3>Bruninho</h3>
+          <p style="opacity:.85">n° 20/22</p>
+        </article>
+        <article class="player">
+          <img src="elenco/Maron.jpeg" alt="Maron" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">7</div>
+          <div class="pos">ALA</div>
+          <h3>Maron</h3>
+          <p style="opacity:.85">n° 7</p>
+        </article>
+        <article class="player">
+          <img src="elenco/Cleber.jpeg" alt="Cleber" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">8</div>
+          <div class="pos">ALA</div>
+          <h3>Cleber</h3>
+          <p style="opacity:.85">n° 8</p>
+        </article>
+        <article class="player">
+          <img src="elenco/semfoto.png" alt="Sette" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">17</div>
+          <div class="pos">ALA</div>
+          <h3>Sette</h3>
+          <p style="opacity:.85">n° 17</p>
+        </article>
+
+        <!-- Meia -->
+        <article class="player">
+          <img src="elenco/semfoto.png" alt="Dedé" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">10</div>
+          <div class="pos">MEIA</div>
+          <h3>Dedé</h3>
+          <p style="opacity:.85">n° 10</p>
+        </article>
+        <article class="player">
+          <img src="elenco/Lucas.jpeg" alt="Lucas" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">9</div>
+          <div class="pos">MEIA</div>
+          <h3>Lucas</h3>
+          <p style="opacity:.85">n° 9</p>
+        </article>
+        <article class="player">
+          <img src="elenco/Machado.jpeg" alt="Machado" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">61</div>
+          <div class="pos">MEIA</div>
+          <h3>Machado</h3>
+          <p style="opacity:.85">n° 61</p>
+        </article>
+
+        <!-- Pivô -->
+        <article class="player">
+          <img src="elenco/Yan.jpeg" alt="Yan" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">23</div>
+          <div class="pos">PIVÔ</div>
+          <h3>Yan</h3>
+          <p style="opacity:.85">n° 23</p>
+        </article>
+        <article class="player">
+          <img src="elenco/Salazar.jpeg" alt="Salazar" onerror="this.src='elenco/semfoto.png'">
+          <div class="jersey">11</div>
+          <div class="pos">PIVÔ</div>
+          <h3>Salazar</h3>
+          <p style="opacity:.85">n° 11</p>
+        </article>
+
+        <!-- Técnico principal -->
+        <article class="player">
+          <img src="elenco/semfoto.png" alt="Técnico">
+          <div class="jersey" style="background:#222;color:#fff">T</div>
+          <div class="pos">TÉCNICO</div>
+          <h3>André Henrique</h3>
+          <p style="opacity:.85">Comando, estratégia e motivação.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Títulos e Estatísticas (contadores) -->
+  <section id="titulos">
+    <div class="wrap">
+      <h2 class="section-title">Títulos &amp; Estatísticas</h2>
+      <p class="section-sub">Números atualizados da equipe.</p>
+      <div class="grid stats">
+        <div class="stat">
+          <div class="num" data-count="3">0</div>
+          <div class="lab">Temporadas</div>
+        </div>
+        <div class="stat">
+          <div class="num" data-count="28">0</div>
+          <div class="lab">Jogos</div>
+        </div>
+        <div class="stat">
+          <div class="num" data-count="22">0</div>
+          <div class="lab">Vitórias</div>
+        </div>
+        <div class="stat">
+          <div class="num" data-count="2">0</div>
+          <div class="lab">Títulos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Agenda -->
+  <section id="agenda">
+    <div class="wrap">
+      <h2 class="section-title">Agenda de Jogos</h2>
+      <p class="section-sub">Próximas partidas e resultados recentes.</p>
+      <div style="overflow:auto; border:1px solid var(--black); border-radius:14px; padding:8px; background:rgba(0,0,0,.35)">
+        <table class="schedule" aria-describedby="legend">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Competição</th>
+              <th>Jogo</th>
+              <th>Local</th>
+              <th>Placar</th>
+            </tr>
+          </thead>
+          <tbody id="scheduleBody">
+            <!-- preenchido via JS -->
+          </tbody>
+        </table>
+      </div>
+      <p id="legend" class="section-sub" style="margin-top:10px; opacity:.8">* V = vitória • D = derrota • E = empate</p>
+    </div>
+  </section>
+
+  <!-- Galeria -->
+  <section id="galeria">
+    <div class="wrap">
+      <h2 class="section-title">Galeria</h2>
+      <p class="section-sub">Momentos da torcida e do elenco.</p>
+  <div class="carousel full-bleed" id="galleryCarousel" aria-roledescription="carrossel">
+        <button class="carousel-btn prev" aria-label="Anterior">‹</button>
+        <div class="carousel-viewport">
+          <div class="carousel-track">
+            <div class="carousel-slide is-active"><img src="galeria/FR__6860.jpg" alt="Galeria R4 - FR__6860" loading="lazy"></div>
+          </div>
+        </div>
+        <button class="carousel-btn next" aria-label="Próxima">›</button>
+        <div class="carousel-dots" aria-label="Seleção de slide"></div>
+      </div>
+      <script>
+        (function(){
+          const root = document.getElementById('galleryCarousel');
+          if(!root) return;
+          const track = root.querySelector('.carousel-track');
+          if(!track) return;
+          // carregar a lista de imagens a partir de um JSON (funciona em hosts estáticos como GitHub Pages)
+          fetch('galeria/list.json')
+            .then(r => { if(!r.ok) throw new Error('no-listing'); return r.json(); })
+            .then(list => {
+              try{
+                if(!Array.isArray(list) || list.length === 0) return;
+                const uniq = Array.from(new Set(list)).sort();
+                track.innerHTML = uniq.map(fn => `\n                <div class="carousel-slide"><img src="galeria/${fn}" alt="Galeria R4 - ${fn}" loading="lazy" decoding="async" draggable="false"></div>`).join('');
+              }catch(e){ /* falha: mantemos slides atuais */ }
+            })
+            .catch(()=>{/* fallback: mantém os slides embutidos */});
+        })();
+      </script>
+    </div>
+  </section>
+
+  <!-- Diretoria (final) -->
+  <section id="diretoria" class="diretoria-section">
+    <div class="wrap">
+      <h2 class="section-title">Diretoria</h2>
+      <p class="section-sub">Entre em contato com a nossa gestão.</p>
+      <div class="contact-actions">
+        <a class="btn btn-instagram" href="https://www.instagram.com/r4_fut7/" target="_blank" rel="noopener" aria-label="Abrir Instagram do R4 FUT 7">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm5 5a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7Zm6.5-.75a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Z"/></svg>
+          Instagram
+        </a>
+        <a class="btn btn-whatsapp" href="https://api.whatsapp.com/send?phone=5531987456653" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.94 14.5L2 22l5.62-1.97A10 10 0 1 0 12 2Zm5.2 14.1c-.24.68-1.38 1.3-1.9 1.34-.5.04-1.1.2-3.72-1.2-3.13-1.55-5.15-4.9-5.31-5.13-.16-.24-1.27-1.7-1.27-3.24 0-1.54.8-2.3 1.1-2.62.3-.32.66-.4.88-.4.22 0 .44 0 .64.01.2.01.48-.08.75.57.28.68.96 2.35 1.05 2.52.08.16.13.35.02.56-.1.22-.15.35-.3.55-.15.2-.31.44-.44.59-.15.15-.3.31-.13.6.17.28.76 1.25 1.64 2.04 1.13 1.01 2.08 1.32 2.37 1.47.3.15.47.13.65-.08.2-.22.75-.87.95-1.17.2-.31.41-.26.68-.16.28.1 1.76.83 2.06.98.3.15.5.23.58.36.07.14.07.82-.16 1.5Z"/></svg>
+          WhatsApp
+        </a>
+        <a class="btn" href="mailto:R4.futebol7@gmail.com" aria-label="Enviar e-mail para a Diretoria">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v.5l-10 6-10-6V6Zm0 3.3V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9.3l-9.4 5.64a2 2 0 0 1-2.1 0L2 9.3Z"/></svg>
+          E-mail
+        </a>
+      </div>
+      <div class="contact-mail chip email" style="margin-top:10px">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v.5l-10 6-10-6V6Zm0 3.3V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9.3l-9.4 5.64a2 2 0 0 1-2.1 0L2 9.3Z"/></svg>
+        <a class="email-text" href="mailto:R4.futebol7@gmail.com">R4.futebol7@gmail.com</a>
+        <button class="btn btn-ghost" id="copyMail" type="button" aria-label="Copiar e-mail">Copiar</button>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <footer>
+    <div class="wrap" style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap">
+      <div class="copy">© <span id="year"></span> R4 FUT 7 — Todos os direitos reservados.</div>
+    </div>
+  </footer>
+
+  <!-- Botões movidos para a seção Diretoria -->
+
+  <!-- Lightbox (modal para visualização ampliada das fotos do elenco) -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lb-inner" role="dialog" aria-modal="true">
+      <button class="lb-close" aria-label="Fechar">×</button>
+      <img id="lightboxImg" src="" alt="" style="display:none">
+      <video id="lightboxVideo" controls playsinline style="display:none"></video>
+      <div class="lb-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Utilidades de data =====
+    // função auxiliar para formatar datas legíveis
+    function fmtDate(iso){
+      try{
+        const d = new Date(iso);
+        if(isNaN(d)) return iso;
+        return d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short', year:'numeric' });
+      }catch(e){ return iso }
+    }
+
+    // Se a variável `jogos` não estiver definida (servidor/APIs locais), injetamos um fallback mínimo
+    // Não sobrescreve `jogos` se já existir
+    if (typeof jogos === 'undefined' || !Array.isArray(jogos)){
+      window.jogos = [
+        { data: '2025-10-23T20:00:00', competicao: 'Amistoso', casa: 'R4 FUT 7', fora: 'Alvarenga', local: 'Quadra Municipal', placar: '6 x 1', resultado: 'V' },
+        { data: '2025-10-30T20:00:00', competicao: 'Copa Local', casa: 'R4 FUT 7', fora: 'Tropa do Ray', local: 'Quadra Municipal', placar: '', resultado: '' },
+        { data: '2025-11-06T20:00:00', competicao: 'Copa Local', casa: 'Arsenal F7', fora: 'R4 FUT 7', local: 'Arena Central', placar: '', resultado: '' }
+      ];
+    }
+
+    // função para preencher a tabela de agenda a partir de `jogos`
+    function populateSchedule(){
+      try{
+        const body = document.getElementById('scheduleBody');
+        if(!body) return;
+        body.innerHTML = '';
+        const arr = Array.isArray(window.jogos) ? window.jogos.slice().sort((a,b)=> new Date(a.data)-new Date(b.data)) : [];
+        arr.forEach(j => {
+          const tr = document.createElement('tr');
+          const tdDate = document.createElement('td'); tdDate.textContent = fmtDate(j.data);
+          const tdComp = document.createElement('td'); tdComp.textContent = j.competicao || '';
+          const tdJogo = document.createElement('td'); tdJogo.textContent = `${j.casa} x ${j.fora}`;
+          const tdLocal = document.createElement('td'); tdLocal.textContent = j.local || '';
+          const tdPlacar = document.createElement('td'); tdPlacar.textContent = j.placar || '';
+          // dá uma classe visual ao resultado (V/D/E) se presente
+          if(j.resultado){ tdPlacar.className = 'result ' + (j.resultado === 'V' ? 'W' : (j.resultado === 'D' ? 'L' : 'D')); }
+          tr.appendChild(tdDate); tr.appendChild(tdComp); tr.appendChild(tdJogo); tr.appendChild(tdLocal); tr.appendChild(tdPlacar);
+          body.appendChild(tr);
+        });
+      }catch(e){ console.warn('populateSchedule erro', e) }
+    }
+
+    // segurança: 'jogos' pode não estar definido em algumas versões locais
+    let proximo = null;
+    if (typeof jogos !== 'undefined' && Array.isArray(jogos)){
+      proximo = jogos
+        .filter(j => !j.placar && new Date(j.data) > new Date())
+        .sort((a,b)=> new Date(a.data)-new Date(b.data))[0] || null;
+    }
+
+    if (proximo){
+      const isCasaR4 = proximo.casa.toLowerCase().includes('r4');
+      const adv = isCasaR4 ? proximo.fora : proximo.casa;
+      document.getElementById('advName').textContent = adv;
+      document.getElementById('advHome').textContent = isCasaR4 ? 'Visitante' : 'Casa';
+      document.getElementById('nmDate').textContent = fmtDate(proximo.data);
+      document.getElementById('nmLoc').textContent  = proximo.local;
+      document.getElementById('nmComp').textContent = proximo.competicao;
+      const shield = document.getElementById('shieldAdv');
+      const advLower = adv.toLowerCase();
+      // Ajuste visual: deixar a caixa do adversário em branco para destacar o escudo
+      shield.style.background = '#ffffff';
+      shield.style.border = '2px solid #000000';
+      shield.style.color = '#000000';
+      shield.style.display = 'grid';
+      shield.style.placeItems = 'center';
+
+      // Mapa simples de escudos - normalize slug and try to load an image from proximos-jogos/
+      const slug = advLower.replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      const shieldMap = {
+        'alvarenga': 'proximos-jogos/alvarenga.png',
+        'tropa-do-ray': 'proximos-jogos/tropadoray.png',
+        'vdl-fut7': 'proximos-jogos/vdl.png',
+        'arsenalf7': 'proximos-jogos/arsenal.png',
+        // adicione outros mapeamentos aqui conforme necessário
+      };
+
+      // Tenta uma lista de candidatos em ordem: mapping explícito, pasta proximos-jogos, raiz
+      const candidates = [];
+      if(shieldMap[slug]) candidates.push(shieldMap[slug]);
+      candidates.push(`proximos-jogos/${slug}.png`);
+      candidates.push(`${slug}.png`);
+
+      // tenta carregar recursivamente cada candidato
+      const tryLoad = (i) => {
+        if(i >= candidates.length){
+          // fallback para duas letras caso nenhum exista
+          shield.textContent = (adv.split(' ')[0] || 'ADV').slice(0,2).toUpperCase();
+          return;
+        }
+        const src = candidates[i];
+        const t = new Image();
+        t.src = src;
+        t.onload = () => {
+          shield.innerHTML = '';
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = `Escudo ${adv}`;
+          img.style.width = '46px'; img.style.height = '46px'; img.style.objectFit = 'contain';
+          shield.appendChild(img);
+        };
+        t.onerror = () => tryLoad(i+1);
+      };
+      tryLoad(0);
+    } else {
+      // se não houver dados de jogos, ocultamos o cartão de próximo jogo (sem lançar erro)
+      const nmEl = document.getElementById('nextMatch');
+      if(nmEl) nmEl.style.display='none';
+    }
+    // preenche a tabela de agenda (mesmo se tivermos injetado o fallback)
+    try{ populateSchedule(); }catch(e){/* ignore */}
+
+    // ===== Contadores animados =====
+    const counters = document.querySelectorAll('.num[data-count]');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const el = e.target;
+          const goal = +el.dataset.count;
+          let n = 0;
+          const step = Math.max(1, Math.round(goal/60));
+          const tick = () => {
+            n += step;
+            if(n >= goal){ n = goal; }
+            el.textContent = n.toString();
+            if(n < goal) requestAnimationFrame(tick);
+          };
+          tick();
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold:.3 });
+    counters.forEach(c=>obs.observe(c));
+
+    // (Lightbox removido ao migrar para carrossel)
+
+    // ===== Menu mobile =====
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.menu');
+    toggle.addEventListener('click', ()=>{
+      const open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    // ===== Rolagem suave =====
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){
+          e.preventDefault();
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+          if(nav.classList.contains('open')){ nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+        }
+      });
+    });
+
+    // ===== Barra de progresso de rolagem (detalhe preto) =====
+    const bar = document.getElementById('scrollbar');
+    const updateBar = () => {
+      const h = document.documentElement;
+      const scrolled = (h.scrollTop)/(h.scrollHeight - h.clientHeight)*100;
+      bar.style.width = scrolled + '%';
+    };
+    document.addEventListener('scroll', updateBar, {passive:true});
+    updateBar();
+
+    // ===== Carrossel da Galeria =====
+    (function(){
+      const root = document.getElementById('galleryCarousel');
+      if(!root) return;
+      const track = root.querySelector('.carousel-track');
+  let prevBtn = root.querySelector('.prev');
+  let nextBtn = root.querySelector('.next');
+    const dotsEl = root.querySelector('.carousel-dots');
+    const viewport = root.querySelector('.carousel-viewport');
+    // Cria contador visual
+    const counter = document.createElement('div');
+    counter.className = 'carousel-counter';
+    counter.textContent = '';
+    root.appendChild(counter);
+
+      const getSlides = () => Array.from(root.querySelectorAll('.carousel-slide'));
+
+      // Remove slides com erro de imagem (ex.: formatos não suportados)
+      getSlides().forEach((s)=>{
+        const img = s.querySelector('img');
+        img.addEventListener('error', () => {
+          const idx = getSlides().indexOf(s);
+          if (idx >= 0) {
+            s.remove();
+            rebuildDots();
+            // Garante que o índice atual é válido
+            const total = getSlides().length;
+            if (total === 0) return; // nada a exibir
+            if (index >= total) index = total - 1;
+            updateSlides();
+          }
+        }, { once:true });
+      });
+
+      let index = 0;
+      let auto;
+
+      const getOffsetX = () => {
+        const w = (viewport && viewport.clientWidth) ? viewport.clientWidth : 0;
+        return -index * w;
+      };
+
+      const updateSlides = () => {
+        const total = getSlides().length;
+        if (total === 0) return;
+        // Normaliza índice
+        index = (index + total) % total;
+        track.style.transform = `translateX(${getOffsetX()}px)`;
+        // Atualiza dots
+        const dots = Array.from(dotsEl.children);
+        dots.forEach(d=> d.setAttribute('aria-current','false'));
+        const activeDot = dots[index];
+        if(activeDot) activeDot.setAttribute('aria-current','true');
+        // Atualiza contador
+        counter.textContent = `${index+1}/${total}`;
+      };
+
+      const rebuildDots = () => {
+        dotsEl.innerHTML = '';
+        const slidesNow = getSlides();
+        slidesNow.forEach((_, i)=>{
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'dot';
+          b.dataset.idx = String(i);
+          b.setAttribute('aria-label', `Ir para slide ${i+1}`);
+          if(i===index) b.setAttribute('aria-current','true');
+          b.addEventListener('click', ()=>{ index = i; updateSlides(); restartAuto(); });
+          dotsEl.appendChild(b);
+        });
+      };
+
+      const next = () => { const total = getSlides().length; if (total) { index = (index + 1) % total; updateSlides(); } };
+      const prev = () => { const total = getSlides().length; if (total) { index = (index - 1 + total) % total; updateSlides(); } };
+
+      // Garante que existam botões; se não, cria fallback
+      if(!prevBtn){
+        prevBtn = document.createElement('button');
+        prevBtn.className = 'carousel-btn prev';
+        prevBtn.setAttribute('aria-label','Anterior');
+        prevBtn.textContent = '‹';
+        root.insertBefore(prevBtn, root.firstChild);
+      }
+      if(!nextBtn){
+        nextBtn = document.createElement('button');
+        nextBtn.className = 'carousel-btn next';
+        nextBtn.setAttribute('aria-label','Próxima');
+        nextBtn.textContent = '›';
+        root.appendChild(nextBtn);
+      }
+
+      nextBtn.addEventListener('click', (e)=>{ e.preventDefault(); next(); restartAuto(); });
+      prevBtn.addEventListener('click', (e)=>{ e.preventDefault(); prev(); restartAuto(); });
+
+      // Teclado
+      root.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowRight'){ e.preventDefault(); next(); restartAuto(); }
+        if(e.key === 'ArrowLeft'){ e.preventDefault(); prev(); restartAuto(); }
+      });
+      root.setAttribute('tabindex','0');
+
+      // Swipe / Arrastar (touch e mouse)
+      let isDragging = false, startX = 0, lastX = 0, hasMoved = false;
+      const onPointerDown = (e) => {
+        isDragging = true; hasMoved = false;
+        root.classList.add('dragging');
+        startX = (e.touches && e.touches[0] ? e.touches[0].clientX : e.clientX);
+        lastX = startX;
+        stopAuto();
+        track.style.transition = 'none';
+      };
+      const onPointerMove = (e) => {
+        if(!isDragging) return;
+        const x = (e.touches && e.touches[0] ? e.touches[0].clientX : e.clientX);
+        const dx = x - startX; lastX = x;
+        hasMoved = hasMoved || Math.abs(dx) > 3;
+        const base = getOffsetX();
+        track.style.transform = `translateX(${base + dx}px)`;
+      };
+      const onPointerUp = () => {
+        if(!isDragging) return;
+        isDragging = false;
+        root.classList.remove('dragging');
+        // Restaura transição para o snap
+        // força reflow antes de aplicar transition novamente
+        void track.offsetWidth; 
+        track.style.transition = '';
+        const dx = lastX - startX;
+        const width = (viewport && viewport.clientWidth) ? viewport.clientWidth : 1;
+        const threshold = Math.max(50, width * 0.15);
+        if(dx > threshold) { prev(); }
+        else if(dx < -threshold) { next(); }
+        else { updateSlides(); }
+        restartAuto();
+      };
+
+      if (viewport) {
+        // Mouse
+        viewport.addEventListener('mousedown', onPointerDown);
+        window.addEventListener('mousemove', onPointerMove);
+        window.addEventListener('mouseup', onPointerUp);
+        // Touch
+        viewport.addEventListener('touchstart', onPointerDown, { passive: true });
+        viewport.addEventListener('touchmove', onPointerMove, { passive: true });
+        viewport.addEventListener('touchend', onPointerUp);
+        // Impede arrastar imagens
+        viewport.querySelectorAll('img').forEach(img => img.setAttribute('draggable','false'));
+      }
+
+      // Ajusta posição ao redimensionar (para manter alinhamento)
+      window.addEventListener('resize', () => {
+        // Remove transition durante ajuste para evitar flicker
+        const prevTransition = track.style.transition;
+        track.style.transition = 'none';
+        updateSlides();
+        // força reflow e restaura transition
+        void track.offsetWidth;
+        track.style.transition = prevTransition || '';
+      });
+
+  // Auto play
+  const startAuto = () => { stopAuto(); auto = setInterval(next, 4000); };
+      const stopAuto = () => { if(auto) clearInterval(auto); };
+      const restartAuto = () => { startAuto(); };
+
+      root.addEventListener('mouseenter', stopAuto);
+      root.addEventListener('mouseleave', startAuto);
+
+      // Inicializa
+      rebuildDots();
+      updateSlides();
+      startAuto();
+      // Fallback: clique no viewport avança
+      if (viewport) {
+        viewport.addEventListener('click', (e)=>{
+          // evita conflito com clique nos dots/botões
+          const t = e.target;
+          if(!(t instanceof Element)) return;
+          if(t.closest('.carousel-btn') || t.closest('.carousel-dots')) return;
+          next(); restartAuto();
+        });
+      }
+      // Segundo start para garantir autoplay após renderização
+      setTimeout(()=>{ updateSlides(); startAuto(); }, 500);
+    })();
+
+    // ===== Lazy loading para imagens (galeria, elenco, patrocinadores) =====
+    (function(){
+      const selectors = [
+        '#galleryCarousel img',
+        '.player img',
+        '#patrocinio img',
+        '#titulos img',
+        '#agenda img'
+      ];
+      const imgs = document.querySelectorAll(selectors.join(','));
+      imgs.forEach(img => {
+        if (!img.hasAttribute('loading')) img.loading = 'lazy';
+        img.decoding = 'async';
+        img.setAttribute('draggable','false');
+      });
+    })();
+
+    // Copiar e-mail da diretoria
+    (function(){
+      const btn = document.getElementById('copyMail');
+      if(!btn) return;
+      const mail = 'R4.futebol7@gmail.com';
+      const original = btn.textContent;
+      const copy = async () => {
+        try{
+          if(navigator.clipboard && navigator.clipboard.writeText){
+            await navigator.clipboard.writeText(mail);
+          } else {
+            const t = document.createElement('textarea');
+            t.value = mail; document.body.appendChild(t); t.select();
+            document.execCommand('copy'); document.body.removeChild(t);
+          }
+          btn.textContent = 'Copiado!';
+          setTimeout(()=> btn.textContent = original, 1500);
+        }catch(e){ btn.textContent = 'Falhou'; setTimeout(()=> btn.textContent = original, 1500); }
+      };
+      btn.addEventListener('click', copy);
+    })();
+
+    // (Parallax detalhado removido por feedback; mantendo interface limpa sobre o novo fundo)
+
+    // Ano rodapé
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // ===== Lightbox para imagens e vídeos (elenco + notícias) =====
+    (function(){
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightboxImg');
+      const lbVideo = document.getElementById('lightboxVideo');
+      const lbCaption = document.getElementById('lightboxCaption');
+      const closeBtn = lb && lb.querySelector('.lb-close');
+      if(!lb || !lbImg || !lbVideo) return;
+
+      const showImage = (src, alt) => {
+        try{
+          // assegurar que o vídeo esteja limpo
+          try{ lbVideo.pause(); }catch(e){}
+          // remover fontes do vídeo para evitar conflito
+          while(lbVideo.firstChild) lbVideo.removeChild(lbVideo.firstChild);
+          lbVideo.removeAttribute('src'); lbVideo.style.display = 'none';
+
+          // definir imagem e forçar exibição
+          lbImg.src = src;
+          lbImg.alt = alt || '';
+          lbImg.style.display = 'block';
+          lbImg.style.maxWidth = '100%';
+          lbImg.style.maxHeight = '76vh';
+          console.debug('Lightbox: showImage', src);
+        }catch(err){ console.error('Erro em showImage:', err); }
+      };
+      const showVideo = (src) => {
+        // hide image and prepare video element
+        lbImg.src = ''; lbImg.style.display = 'none';
+        lbVideo.style.display = '';
+
+        // prepare possible sources (prefer mp4 then mov)
+        const base = src.replace(/\.[^.]+$/, '');
+        const candidates = [base + '.mp4', base + '.MP4', base + '.mov', base + '.MOV', base + '.m4v', src];
+
+        // clear previous sources and listeners
+        try{ lbVideo.pause(); }catch(e){}
+        lbVideo.removeAttribute('src');
+        while(lbVideo.firstChild) lbVideo.removeChild(lbVideo.firstChild);
+
+        candidates.forEach(c => {
+          const ext = (c.split('.').pop() || '').toLowerCase();
+          let type = 'video/mp4';
+          if(ext === 'mov') type = 'video/quicktime';
+          else if(ext === 'm4v') type = 'video/x-m4v';
+          const s = document.createElement('source');
+          s.src = c; s.type = type; lbVideo.appendChild(s);
+        });
+        lbVideo.load();
+
+        // show a visible 'abrir/baixar' link immediately while probe runs
+        if(lbCaption){ lbCaption.innerHTML = '<span style="color:#fff">Carregando vídeo... <a href="'+candidates[0]+'" style="color:#fff; text-decoration:underline" target="_blank" rel="noopener">Abrir/baixar</a></span>'; }
+
+        // listeners: try to play on canplay, show download link on error or stalled
+        const onCanPlay = () => {
+          try{ const p = lbVideo.play(); if(p && p.catch) p.catch(()=>{}); }catch(e){}
+          cleanup();
+          if(lbCaption) lbCaption.textContent = '';
+        };
+        const onError = () => {
+          if(lbCaption){ lbCaption.innerHTML = '<span style="color:#fff">Erro ao reproduzir. <a href="'+candidates[0]+'" style="color:#fff; text-decoration:underline" target="_blank" rel="noopener">Baixar vídeo</a></span>'; }
+          cleanup();
+        };
+        const onStalled = () => {
+          setTimeout(()=>{ if(lbVideo && lbVideo.readyState < 3){ onError(); } }, 1200);
+        };
+        const cleanup = () => {
+          lbVideo.removeEventListener('canplay', onCanPlay);
+          lbVideo.removeEventListener('error', onError);
+          lbVideo.removeEventListener('stalled', onStalled);
+        };
+        lbVideo.addEventListener('canplay', onCanPlay, { once:true });
+        lbVideo.addEventListener('error', onError, { once:true });
+        lbVideo.addEventListener('stalled', onStalled, { once:true });
+      };
+
+      const open = (opts) => {
+        // opts: { type: 'image'|'video', src, alt, caption }
+        if(!opts || !opts.src) return;
+        if(opts.type === 'video') showVideo(opts.src);
+        else showImage(opts.src, opts.alt || '');
+        lbCaption.textContent = opts.caption || '';
+        lb.classList.add('is-open');
+        lb.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+        if(closeBtn) closeBtn.focus();
+      };
+
+      const close = () => {
+        lb.classList.remove('is-open');
+        lb.setAttribute('aria-hidden','true');
+        // cleanup
+        if(lbVideo){ lbVideo.pause(); lbVideo.removeAttribute('src'); }
+        if(lbImg){ lbImg.src = ''; }
+        document.body.style.overflow = '';
+      };
+
+      // close handlers
+      if(closeBtn) closeBtn.addEventListener('click', close);
+      lb.addEventListener('click', (e)=>{ if(e.target === lb) close(); });
+      window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') close(); });
+
+      // anexar handler a cada imagem do elenco
+      const playerImgs = document.querySelectorAll('.player img');
+      playerImgs.forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', (ev)=>{
+          const src = img.currentSrc || img.src;
+          const alt = img.alt || '';
+          let caption = '';
+          const parent = img.closest('.player');
+          if(parent){ const h = parent.querySelector('h3'); if(h) caption = h.textContent.trim(); }
+          open({type:'image', src, alt, caption});
+          ev.stopPropagation();
+        });
+      });
+
+      // garantir handlers para imagens dos cards de notícias (reaplicar caso tenha havido alteração)
+      const newsImgs = document.querySelectorAll('.news-card img');
+      newsImgs.forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.removeEventListener('click', img._lbHandler);
+        img._lbHandler = (ev) => {
+          const src = img.currentSrc || img.src;
+          const title = (img.closest('.news-card')||{}).querySelector('.title');
+          const caption = title ? title.textContent.trim() : '';
+          try{ open({type:'image', src, caption}); }catch(e){ console.error('open image failed', e); }
+          ev.stopPropagation();
+        };
+        img.addEventListener('click', img._lbHandler);
+      });
+
+      // anexar handler aos cards de notícias (suporta imagem ou vídeo via data-video)
+      const newsCards = document.querySelectorAll('.news-card');
+      const tryFindPoster = (videoPath, cb) => {
+        // tenta trocar extensão para png/jpg/PNG e testa carregamento
+        const base = videoPath.replace(/\.[^.]+$/, '');
+        const cands = [base + '.png', base + '.PNG', base + '.jpg', base + '.jpeg'];
+        let i = 0;
+        const tryNext = () => {
+          if(i >= cands.length) return cb(null);
+          const img = new Image();
+          img.src = cands[i];
+          img.onload = () => cb(cands[i]);
+          img.onerror = () => { i++; tryNext(); };
+        };
+        tryNext();
+      };
+
+      newsCards.forEach(card => {
+        card.style.cursor = 'zoom-in';
+        // se o card tiver um <video> inline (preview), tentamos pausá-lo para evitar autoplay inesperado
+        const inlineVid = card.querySelector('video');
+        if(inlineVid){ try{ inlineVid.pause(); inlineVid.muted = true; inlineVid.loop = true; inlineVid.play().catch(()=>{}); }catch(e){} }
+
+        card.addEventListener('click', (ev)=>{
+          const videoSrc = card.dataset && card.dataset.video;
+          const title = (card.querySelector('.title')||{}).textContent || '';
+          if(videoSrc){
+            // se o próprio card tiver uma imagem (capa), use-a como poster; caso contrário tenta encontrar poster por convensão
+            const cardImg = card.querySelector('img');
+            if(cardImg){
+              const poster = cardImg.currentSrc || cardImg.src;
+              open({type:'image', src: poster, caption: title});
+              setTimeout(()=>{ open({type:'video', src: videoSrc, caption: title}); }, 400);
+            } else {
+                  // sem poster: tentamos encontrar uma variante reproduzível do vídeo
+                  const tryFindPlayableVideo = async (path, callback) => {
+                    const base = path.replace(/\.[^.]+$/, '');
+                    const exts = ['.mp4', '.MP4', '.mov', '.MOV', '.m4v'];
+                    const candidates = exts.map(e => base + e);
+                    if(!candidates.includes(path)) candidates.push(path);
+
+                    let idx = 0;
+                    const tryNext = () => {
+                      if(idx >= candidates.length) return callback(null);
+                      const candidate = candidates[idx++];
+                      // Primeiro: tente um HEAD para checar existência e content-type (mais rápido que criar <video>)
+                      fetch(candidate, { method: 'HEAD' }).then(resp => {
+                        if(resp.ok){
+                          const ct = (resp.headers.get('content-type') || '').toLowerCase();
+                          // se o servidor reporta um tipo de vídeo, devolve imediatamente
+                          if(ct.startsWith('video/')){ console.debug('Found video by HEAD:', candidate, ct); return callback(candidate); }
+                        }
+                        // Senão, tenta com probe via elemento <video>
+                        try{
+                          const probe = document.createElement('video');
+                          probe.preload = 'metadata';
+                          let done = false;
+                          const onLoaded = () => { if(done) return; done = true; probe.src = ''; console.debug('Probe success:', candidate); callback(candidate); };
+                          const onError = () => { if(done) return; done = true; probe.src = ''; console.debug('Probe failed:', candidate); setTimeout(tryNext, 60); };
+                          probe.addEventListener('loadedmetadata', onLoaded, { once:true });
+                          probe.addEventListener('error', onError, { once:true });
+                          // safety timeout
+                          setTimeout(()=>{ if(!done) onError(); }, 1500);
+                          probe.src = candidate;
+                        }catch(e){ console.debug('Probe exception:', candidate, e); setTimeout(tryNext, 60); }
+                      }).catch(err => {
+                        // fetch HEAD falhou (ex.: CORS ou file://) — tenta probe mesmo assim
+                        try{
+                          const probe = document.createElement('video');
+                          probe.preload = 'metadata';
+                          let done = false;
+                          const onLoaded = () => { if(done) return; done = true; probe.src = ''; console.debug('Probe success (after HEAD fail):', candidate); callback(candidate); };
+                          const onError = () => { if(done) return; done = true; probe.src = ''; console.debug('Probe failed (after HEAD fail):', candidate); setTimeout(tryNext, 60); };
+                          probe.addEventListener('loadedmetadata', onLoaded, { once:true });
+                          probe.addEventListener('error', onError, { once:true });
+                          setTimeout(()=>{ if(!done) onError(); }, 1500);
+                          probe.src = candidate;
+                        }catch(e2){ console.debug('Probe exception after HEAD fail:', candidate, e2); setTimeout(tryNext, 60); }
+                      });
+                    };
+                    tryNext();
+                  };
+
+                  tryFindPlayableVideo(videoSrc, (found)=>{
+                    if(found){
+                      open({type:'video', src: found, caption: title});
+                      // se for o mesmo caminho e possivelmente não reproduzir, acrescenta fallback para download após 1s
+                      setTimeout(()=>{
+                        const lbv = document.getElementById('lightboxVideo');
+                        if(lbv && lbv.videoWidth === 0){
+                          const link = document.createElement('a');
+                          link.href = found; link.textContent = 'Baixar vídeo (compatibilidade)'; link.style.color = '#fff'; link.style.textDecoration='underline';
+                          const cap = document.getElementById('lightboxCaption');
+                          if(cap){ cap.innerHTML = ''; cap.appendChild(link); }
+                        }
+                      }, 1100);
+                    } else {
+                      // nenhum candidato reproduzível encontrado
+                      open({type:'video', src: videoSrc, caption: title});
+                      setTimeout(()=>{
+                        const lbv = document.getElementById('lightboxVideo');
+                        if(lbv && lbv.videoWidth === 0){
+                          const link = document.createElement('a');
+                          link.href = videoSrc; link.textContent = 'Baixar vídeo (compatibilidade)'; link.style.color = '#fff'; link.style.textDecoration='underline';
+                          const cap = document.getElementById('lightboxCaption');
+                          if(cap){ cap.innerHTML = ''; cap.appendChild(link); }
+                        }
+                      }, 1100);
+                    }
+                  });
+                }
+            ev.stopPropagation();
+            return;
+          }
+          // imagem padrão
+          const img = card.querySelector('img');
+          if(img){
+            const src = img.currentSrc || img.src;
+            open({type:'image', src, caption: title});
+            ev.stopPropagation();
+          }
+        });
+      });
+    })();
+  </script>
+    <!-- Autocorreção de imagens quebradas: tenta variantes de nome/encoding/extensão -->
+    <script>
+    (function(){
+      if(!window || !document) return;
+      const removeDiacritics = s => s.normalize && s.normalize('NFD').replace(/[ -\u036f]/g,'').replace(/\p{Diacritic}/gu,'') || s.replace(/[^\u0000-\u007F]/g,'');
+
+      function buildCandidates(orig){
+        try{
+          const url = orig || '';
+          const parts = url.split('/');
+          const name = parts.pop() || '';
+          const dir = parts.length ? parts.join('/') + '/' : '';
+          const nameNorm = removeDiacritics(name);
+          const nameEnc = encodeURIComponent(name);
+          const nameEncFull = encodeURI(url);
+          const base = nameNorm.replace(/\s+/g,' ');
+          const noExt = base.replace(/\.[^.]+$/, '');
+          const exts = ['jpg','jpeg','png','webp','JPG','PNG','JPEG'];
+          const set = new Set();
+          set.add(url);
+          set.add(dir + nameEnc);
+          set.add(nameEncFull);
+          set.add(dir + name);
+          set.add(dir + nameNorm);
+          set.add(dir + base.replace(/\s+/g,'%20'));
+          set.add(dir + base.replace(/\s+/g,'-'));
+          set.add(dir + name.toLowerCase());
+          exts.forEach(e=> set.add(dir + noExt + '.' + e));
+          return Array.from(set);
+        }catch(e){ return [orig]; }
+      }
+
+      function tryCandidates(img, candidates){
+        let i = 0;
+        function next(){
+          if(i >= candidates.length) return;
+          const c = candidates[i++];
+          if(!c) return next();
+          // se já estiver no src atual, pula
+          if(img.src && img.src.indexOf(c) !== -1) return next();
+          const tester = new Image();
+          tester.onload = function(){ img.src = c; };
+          tester.onerror = next;
+          tester.src = c;
+        }
+        next();
+      }
+
+      document.addEventListener('DOMContentLoaded', ()=>{
+        document.querySelectorAll('img').forEach(img=>{
+          // já visível? se falhar, tenta variantes
+          img.addEventListener('error', function handler(){
+            img.removeEventListener('error', handler);
+            const src = img.getAttribute('src') || img.src || '';
+            const candidates = buildCandidates(src);
+            tryCandidates(img, candidates);
+          }, { once:true });
+        });
+      });
+    })();
+    </script>
+</body>
+</html>
