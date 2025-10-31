@@ -719,26 +719,30 @@
 
       <div class="news-grid">
         <article class="news-card" data-video="">
-          <img src="noticias/1.png" alt="R4 brilha na estreia" loading="lazy" decoding="async">
+          <img src="noticias/1.jpeg" alt="R4" loading="lazy" decoding="async">
           <div class="overlay">
-            <div class="title">R4 brilha na estreia e atropela o adversário com goleada histórica: 6 a 1!</div>
+            <div class="title">Mesmo sob chuva intensa, a equipe R4 mostrou domínio e venceu de forma brilhante, superando as adversidades do tempo.</div>
           </div>
         </article>
 
         <article class="news-card" data-video="noticias/2.MOV">
           <!-- capa (poster) do vídeo; ao clicar abre o vídeo em lightbox -->
-          <img src="noticias/2tela.png" alt="Salazar vibra" loading="lazy" decoding="async">
+          <img src="noticias/2tela.jpeg" alt="ataque" loading="lazy" decoding="async">
           <div class="overlay">
-            <div class="title">Salazar vibra após goleada: “Time unido!”</div>
+            <div class="title">Ataque brilha e Yan marca dois gols em vitória decisiva da equipe.</div>
           </div>
         </article>
 
         <article class="news-card" data-video="">
-          <img src="noticias/3.PNG" alt="A rodada foi eletrizante" loading="lazy" decoding="async">
+          <img src="noticias/3.jpeg" alt="A rodada foi eletrizante" loading="lazy" decoding="async">
           <div class="overlay">
-            <div class="title">A rodada foi eletrizante! Veja os placares e destaques</div>
+            <div class="title">Fim de jogo! R4 vence por 4 a 2 e confirma o bom momento na competição.</div>
           </div>
         </article>
+  
+
+
+
       </div>
     </div>
   </section>
@@ -866,14 +870,14 @@
 
         <!-- MEIA -->
         <article class="player">
-          <img src="elenco/semfoto.png" alt="João" onerror="this.src='elenco/semfoto.png'">
+          <img src="elenco/Joao.jpeg" alt="João" onerror="this.src='elenco/semfoto.png'">
           <div class="jersey">13</div>
           <div class="pos">MEIA</div>
           <h3>João</h3>
           <p style="opacity:.85">n° 13</p>
         </article>
         <article class="player">
-          <img src="elenco/semfoto.png" alt="Paulinho" onerror="this.src='elenco/semfoto.png'">
+          <img src="elenco/Paulinho.jpeg" alt="Paulinho" onerror="this.src='elenco/semfoto.png'">
           <div class="jersey">25</div>
           <div class="pos">MEIA</div>
           <h3>Paulinho</h3>
@@ -969,6 +973,13 @@
           <div class="jersey" style="background:#222;color:#fff">T</div>
           <div class="pos">TÉCNICO</div>
           <h3>André Henrique</h3>
+          <p style="opacity:.85">Comando, estratégia e motivação.</p>
+        </article>
+        <article class="player">
+          <img src="elenco/Daniel.jpeg" alt="Auxiliar Técnico">
+          <div class="jersey" style="background:#222;color:#fff">T</div>
+          <div class="pos">AUXILIAR TÉCNICO</div>
+          <h3>DANIEL</h3>
           <p style="opacity:.85">Comando, estratégia e motivação.</p>
         </article>
       </div>
@@ -1126,7 +1137,7 @@
     if (typeof jogos === 'undefined' || !Array.isArray(jogos)){
       window.jogos = [
         { data: '2025-10-23T20:00:00', competicao: 'Copa Invictus', casa: 'R4 FUT 7', fora: 'Alvarenga', local: 'ARENA FUT7 UNIVERSITÁRIO', placar: '6 x 1', resultado: 'V' },
-        { data: '2025-10-30T20:00:00', competicao: 'Copa Invictus', casa: 'R4 FUT 7', fora: 'Tropa do Ray', local: 'ARENA FUT7 UNIVERSITÁRIO', placar: '', resultado: '' },
+        { data: '2025-10-30T20:00:00', competicao: 'Copa Invictus', casa: 'R4 FUT 7', fora: 'Tropa do Ray', local: 'ARENA FUT7 UNIVERSITÁRIO', placar: '4 x 2', resultado: 'V' },
         { data: '2025-11-06T20:00:00', competicao: 'Copa Invictus', casa: 'Arsenal F7', fora: 'R4 FUT 7', local: 'ARENA FUT7 UNIVERSITÁRIO', placar: '', resultado: '' }
       ];
     }
@@ -1181,11 +1192,13 @@
       // Mapa simples de escudos - normalize slug and try to load an image from proximos-jogos/
       const slug = advLower.replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
       const shieldMap = {
-        'alvarenga': 'proximos-jogos/alvarenga.png',
-        'tropa-do-ray': 'proximos-jogos/tropadoray.png',
-        'vdl-fut7': 'proximos-jogos/vdl.png',
-        'arsenalf7': 'proximos-jogos/arsenal.png',
-        // adicione outros mapeamentos aqui conforme necessário
+  'alvarenga': 'proximos-jogos/alvarenga.png',
+  'tropa-do-ray': 'proximos-jogos/tropadoray.png',
+  'vdl-fut7': 'proximos-jogos/vdl.png',
+  'arsenalf7': 'proximos-jogos/arsenal.png',
+  'arsenal-f7': 'proximos-jogos/arsenal.png',
+  'arsenal': 'proximos-jogos/arsenal.png',
+  // adicione outros mapeamentos aqui conforme necessário
       };
 
       // Tenta uma lista de candidatos em ordem: mapping explícito, pasta proximos-jogos, raiz
@@ -1826,6 +1839,7 @@
         });
       });
     })();
+  
     </script>
 </body>
 </html>
